@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    open: true,
     proxy: {
       '/api': {
         target: process.env.VITE_API_URL || 'http://localhost:8080/api',
@@ -17,13 +16,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'redux-vendor': ['redux', '@reduxjs/toolkit', 'react-redux']
-        }
-      }
-    }
+    minify: 'terser'
   }
 })
