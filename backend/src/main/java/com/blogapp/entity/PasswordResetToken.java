@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "password_reset_tokens")
@@ -16,25 +14,24 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class PasswordResetToken {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String token;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "expiry_date", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime expiryDate;
 
-    @Column(name = "is_used")
-    private Boolean isUsed = false;
+    @Column(nullable = false)
+    private Boolean used = false;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
@@ -42,7 +39,7 @@ public class PasswordResetToken {
         createdAt = LocalDateTime.now();
     }
 
-    public boolean isExpired() {
+    public Boolean isExpired() {
         return LocalDateTime.now().isAfter(expiryDate);
     }
 }
