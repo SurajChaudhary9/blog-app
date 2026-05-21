@@ -1,0 +1,36 @@
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  
+  mail:
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: 3600000
+    refresh-expiration: 604800000
+  mail:
+    from: ${APP_MAIL_FROM}
+    frontend-url: ${APP_MAIL_FRONTEND_URL}
+
+logging:
+  level:
+    root: WARN
+    com.blogapp: INFO
