@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:blog_app_dev
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+logging:
+  level:
+    root: INFO
+    com.blogapp: DEBUG
+    org.springframework.security: DEBUG
